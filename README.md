@@ -2,7 +2,7 @@
 Customize Envoy based on the tag v1.22.5.
 
 ## Preparation
-- Docker installation
+### Docker installation
 ```
 sudo mkdir -m 0755 -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -11,14 +11,14 @@ $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
-- Project preparation
+### Project preparation
 You need to download the official project of Envoy from github and checkout to some specific tag that you need.
 ```
 git clone https://github.com/envoyproxy/envoy
 git tag -l    # list tags
 git checkout tags/<tag> -b <br_name>    # switch to some verified tag and create a new branch
 ```
-- Configuration
+### Configuration
 1. If you are behind a proxy, you need to write the config below into the file `~/.docker/config.json`.
 ```
 {
@@ -38,7 +38,6 @@ git checkout tags/<tag> -b <br_name>    # switch to some verified tag and create
 - You may need to add `--network=host` for the command about building Docker image(`docker build...`) to use the proxy on the host machine.
 
 ## Compilation
-`./compile.sh`: build binary file;
-`./compile.sh xx`: build binary file and do testing;
+`./compile.sh`: build binary file;<br />
+`./compile.sh xx`: build binary file and do testing;<br />
 `./build.sh`: build docker image.
-
