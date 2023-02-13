@@ -1,0 +1,32 @@
+version: "3.5"
+
+x-volumes-common: &volumes_common
+#  - "/usr/share/zoneinfo/Asia/Shanghai:/usr/share/zoneinfo/Asia/Shanghai:ro"
+#  - "/etc/localtime:/etc/localtime:ro"
+#  - "/etc/timezone:/etc/timezone:ro"
+  - "./envoy.yaml:/etc/envoy/envoy.yaml:ro"
+#  - "./bgzs_0407.key:/bgzs_0407.key:ro"
+#  - "./bgzs_0407.crt:/bgzs_0407.crt:ro"
+
+
+x-meta-info: &meta_info
+  image: envoy:latest
+#  image: envoyproxy/envoy:v1.22-latest
+  container_name: envoy_gw
+  restart: "always"
+  volumes: *volumes_common
+  network_mode: "host"
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "50m"
+      max-file: "5"
+
+services:
+  envoyv: # validate envoy config file
+    <<: *meta_info
+    profiles: ["validation"]
+    command: envoy --mode validate --config-path /etc/envoy/envoy.yaml
+  envoy:
+    <<: *meta_info
+
