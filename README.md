@@ -42,3 +42,14 @@ You may also need to add `--network=host` for the command about building Docker 
 `./compile.sh`: build binary file;<br />
 `./compile.sh xx`: build binary file and do testing; (You need a 250GB disk!)<br />
 `./build.sh`: build docker image.
+
+## Development
+### Environment preparation
+1. Download vscode and install the plugin Dev Containers;
+2. Get the permission of Docker commands:
+```
+sudo groupadd docker
+sudo gpasswd -a $USER docker
+```
+You can verify the permission by executing `docker sp -a`. `sudo` should be NOT necessary.<br />
+A reboot may necessary.
