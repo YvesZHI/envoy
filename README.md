@@ -32,12 +32,12 @@ git checkout tags/<tag> -b <br_name>    # switch to some verified tag and create
  }
 }
 ```
-2. The config of `./ci/run_envoy_docker.sh` may need to be modified.
+You may also need to add `--network=host` for the command about building Docker image(`docker build...`) to use the proxy on the host machine.
+2. The config of `./ci/run_envoy_docker.sh` may need to be modified:
 - You may need to change the value of `DEFAULT_ENVOY_DOCKER_BUILD_DIR` to use a larger disk;
-- You may need to add `--net=host` for the command `docker run` to use the proxy on the host machine;
-- You may need to add `--network=host` for the command about building Docker image(`docker build...`) to use the proxy on the host machine.
+- You may need to add `--net=host` for the command `docker run` to use the proxy on the host machine.
 
 ## Compilation
 `./compile.sh`: build binary file;<br />
-`./compile.sh xx`: build binary file and do testing;<br />
+`./compile.sh xx`: build binary file and do testing; (You need a 250GB disk!)<br />
 `./build.sh`: build docker image.
