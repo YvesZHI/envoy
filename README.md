@@ -3,6 +3,7 @@ Customize Envoy based on the tag v1.22.5.
 
 ## Preparation
 ### Docker installation
+Install Docker on your machine. Here is an example of Ubuntu:
 ```
 sudo mkdir -m 0755 -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -16,8 +17,9 @@ You need to download the official project of Envoy from github and checkout to s
 ```
 git clone https://github.com/envoyproxy/envoy
 git tag -l    # list tags
-git checkout tags/<tag> -b <br_name>    # switch to some verified tag and create a new branch
+git checkout tags/<tag> -b <br_name>    # switch to some tag, which is verified by Envoy official repo and create a new branch
 ```
+Please make sure that the tag you choose is verified.
 ### Configuration
 1. If you are behind a proxy, you need to write the config below into the file `~/.docker/config.json`.
 ```
@@ -40,16 +42,18 @@ You may also need to add `--network=host` for the command about building Docker 
 
 ## Compilation
 `./compile.sh`: build binary file;<br />
-`./compile.sh xx`: build binary file and do testing; (You need a 250GB disk!)<br />
+`./compile.sh xx`: build binary file and do testing; (You need a 250GB disk)<br />
 `./build.sh`: build docker image.
 
+Compile Envoy with pure `bazel` command is not recommended as you may get some compiling environment issues.
+
 ## Development
-### Environment preparation
+### Preparation
 1. Download vscode and install the plugin Dev Containers;
 2. Get the permission of Docker commands:
 ```
 sudo groupadd docker
 sudo gpasswd -a $USER docker
 ```
-You can verify the permission by executing `docker sp -a`. `sudo` should be NOT necessary.<br />
-A reboot may necessary.
+You can verify the permission by executing `docker sp -a`. `sudo` should NOT be necessary anymore.<br />
+A reboot may be necessary.
