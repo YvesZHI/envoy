@@ -35,13 +35,30 @@ static_resources:
   clusters:
   - name: service_envoyproxy_io
     type: LOGICAL_DNS
+    health_checks:
+    - timeout: 2s
+      interval: 20s
+      interval_jitter: 1s
+#      event_log_path: "/test.log"
+#      always_log_health_check_failures: true
+      unhealthy_threshold: 2
+      healthy_threshold: 1
+      http_health_check:
+        path: "/"
     # Comment out the following line to test on v6 networks
     dns_lookup_family: V4_ONLY
     load_assignment:
       cluster_name: service_envoyproxy_io
       endpoints:
-      - lb_endpoints:
+      - locality:
+          region: "foshan"
+#        health_checks:
+#        - timeout: 10s
+#          interval: 40s
+        lb_endpoints:
         - endpoint:
+            health_check_config:
+              port_value: 443
             address:
               socket_address:
                 address: www.envoyproxy.io
